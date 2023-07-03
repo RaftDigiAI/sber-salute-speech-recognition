@@ -1,7 +1,7 @@
 {
   "name": "sber-salute-speech-recognition",
-  "version": "0.1.0",
-  "description": "A library for getting audio transcriptions from the SBER Salute Speech service",
+  "version": "1.0.1",
+  "description": "A library that produces audio transcriptions using the SBER Salute Speech service.",
   "main": "./lib/index.js",
   "files": [
     "lib/**/*"
@@ -120,7 +120,7 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "music-metadata": "^8.1.4",
+    "music-metadata": "^7.13.4",
     "qs": "^6.11.2",
     "uuid": "^9.0.0"
   }

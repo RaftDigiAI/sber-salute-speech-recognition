@@ -1,7 +1,7 @@
 import { Agent } from 'https';
 import { IAudioMetadata, parseFile } from 'music-metadata';
 import axios from 'axios';
-import qs from 'qs';
+import * as qs from 'qs';
 import {
   MAX_WAIT_TIME,
   RECOGNITION_POLLING_DELAY,
@@ -9,7 +9,7 @@ import {
   SPEECH_TOKEN_URL,
   TOKEN_SCOPE,
 } from './constants';
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import {
   SupportedAudioEncoding,
   SpeechToTextResult,
