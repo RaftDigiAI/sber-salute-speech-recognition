@@ -1,7 +1,8 @@
 import { Agent } from 'https';
 import { IAudioMetadata, parseFile } from 'music-metadata';
 import axios from 'axios';
-import qs from 'qs';
+import * as qs from 'qs';
+import * as fs from 'fs';
 import {
   MAX_WAIT_TIME,
   RECOGNITION_POLLING_DELAY,
@@ -9,7 +10,7 @@ import {
   SPEECH_TOKEN_URL,
   TOKEN_SCOPE,
 } from './constants';
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import {
   SupportedAudioEncoding,
   SpeechToTextResult,
@@ -77,6 +78,7 @@ export class SberSaluteSpeechRecognitionService
     audioFilePath: string
   ): Promise<FileUploadResponse> {
     const { access_token } = await this.getAccessToken();
+    const audioFile = fs.createReadStream(audioFilePath);
     const response = await axios.request({
       method: 'post',
       maxBodyLength: Infinity,
@@ -85,7 +87,7 @@ export class SberSaluteSpeechRecognitionService
         Authorization: `Bearer ${access_token}`,
         'Content-Type': 'audio/mpeg',
       },
-      data: audioFilePath,
+      data: audioFile,
       httpsAgent: new Agent({
         rejectUnauthorized: false,
       }),
@@ -199,6 +201,7 @@ export class SberSaluteSpeechRecognitionService
     const recognitionResult = await this.getRecognitionResult(
       recognitionStatus
     );
+
     const text = recognitionResult
       .reduce((acc, item) => {
         return (
