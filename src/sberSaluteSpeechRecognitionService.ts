@@ -8,7 +8,6 @@ import {
   RECOGNITION_POLLING_DELAY,
   SPEECH_BASE_URL,
   SPEECH_TOKEN_URL,
-  TOKEN_SCOPE,
 } from './constants';
 import * as uuid from 'uuid';
 import {
@@ -20,6 +19,7 @@ import {
   RecognitionResultResponse,
   RecognitionStatusResponse,
 } from './types';
+import { Scope } from './enums';
 
 export interface ISberSaluteSpeechRecognitionService {
   speechToText(
@@ -35,14 +35,18 @@ export class SberSaluteSpeechRecognitionService
   private token: SberSaluteToken | null = null;
   private readonly sessionId: string;
 
-  constructor(authKey: string, sessionId?: string) {
+  constructor(
+    authKey: string,
+    sessionId?: string,
+    private readonly scope = Scope.Personal
+  ) {
     this.authKey = authKey;
     this.sessionId = sessionId || uuid.v4();
   }
 
   private async updateAccessToken() {
     const data = qs.stringify({
-      scope: TOKEN_SCOPE,
+      scope: this.scope,
     });
 
     const response = await axios({
