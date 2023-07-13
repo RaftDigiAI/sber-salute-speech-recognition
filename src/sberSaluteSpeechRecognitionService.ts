@@ -11,7 +11,6 @@ import {
 } from './constants';
 import * as uuid from 'uuid';
 import {
-  SupportedAudioEncoding,
   SpeechToTextResult,
   SberSaluteToken,
   FileUploadResponse,
@@ -19,12 +18,12 @@ import {
   RecognitionResultResponse,
   RecognitionStatusResponse,
 } from './types';
-import { Scope } from './enums';
+import { Scope, AudioEncoding } from './enums';
 
 export interface ISberSaluteSpeechRecognitionService {
   speechToText(
     audioPath: string,
-    encoding: SupportedAudioEncoding
+    encoding: AudioEncoding
   ): Promise<SpeechToTextResult>;
 }
 
@@ -102,7 +101,7 @@ export class SberSaluteSpeechRecognitionService
   private async startRecognition(
     uploadedFile: FileUploadResponse,
     fileMetadata: IAudioMetadata,
-    encoding: SupportedAudioEncoding
+    encoding: AudioEncoding
   ): Promise<RecognitionResponse> {
     const data = JSON.stringify({
       options: {
@@ -177,7 +176,7 @@ export class SberSaluteSpeechRecognitionService
 
   async speechToText(
     audioPath: string,
-    encoding: SupportedAudioEncoding
+    encoding: AudioEncoding
   ): Promise<SpeechToTextResult> {
     const metadata = await parseFile(audioPath);
     const fileUploadResponse = await this.uploadFileForRecognition(audioPath);
