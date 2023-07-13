@@ -17,12 +17,12 @@ npm install sber-salute-speech-recognition
 ## Usage
 
 ```ts
-import { SberSaluteSpeechRecognitionService } from 'sber-salute-speech-recognition';
+import { SberSaluteSpeechRecognitionService, AudioEncoding } from 'sber-salute-speech-recognition';
 
 const recognitionService = new SberSaluteSpeechRecognitionService(AUTH_KEY);
 const { text, normalizedText } = await recognitionService.speechToText(
   pathToAudioFile,
-  'MP3'
+  AudioEncoding.MP3
 );
 ```
 

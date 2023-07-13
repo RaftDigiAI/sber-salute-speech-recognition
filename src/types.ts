@@ -43,11 +43,3 @@ export type SpeechToTextResult = {
   text: string;
   normalizedText: string;
 };
-
-export type SupportedAudioEncoding =
-  | 'MP3'
-  | 'PCM_S16LE'
-  | 'FLAC'
-  | 'OPUS'
-  | 'ALAW'
-  | 'MULAW';
