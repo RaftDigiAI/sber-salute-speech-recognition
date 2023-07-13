@@ -25,3 +25,21 @@ const { text, normalizedText } = await recognitionService.speechToText(
   'MP3'
 );
 ```
+
+## AccessToken Scope
+
+The `scope` property is set during the instantiation of the `SberSaluteSpeechRecognitionService` class.
+If no value is provided, it defaults to `Scope.Personal`.
+
+Here is an example of how to use the `scope` property:
+
+```typescript
+import { SberSaluteSpeechRecognitionService, Scope } from 'sber-salute-speech-recognition';
+
+const service = new SberSaluteSpeechRecognitionService(AUTH_KEY, undefined, Scope.Corporate);
+```
+
+In this example, the `scope` property is set to `Scope.Corporate` what equals `SALUTE_SPEECH_CORP`.
+If you want to use the `SALUTE_SPEECH_PERS` scope,
+you can either pass `Scope.Personal` as the third argument or omit the third argument entirely,
+as it defaults to `Scope.Personal`.

@@ -8,7 +8,6 @@ import {
   RECOGNITION_POLLING_DELAY,
   SPEECH_BASE_URL,
   SPEECH_TOKEN_URL,
-  TOKEN_SCOPE,
 } from './constants';
 import * as uuid from 'uuid';
 import {
@@ -20,6 +19,7 @@ import {
   RecognitionResultResponse,
   RecognitionStatusResponse,
 } from './types';
+import { Scope } from './enums';
 
 export interface ISberSaluteSpeechRecognitionService {
   speechToText(
@@ -38,7 +38,7 @@ export class SberSaluteSpeechRecognitionService
   constructor(
     authKey: string,
     sessionId?: string,
-    private readonly scope = TOKEN_SCOPE
+    private readonly scope = Scope.Personal
   ) {
     this.authKey = authKey;
     this.sessionId = sessionId || uuid.v4();
