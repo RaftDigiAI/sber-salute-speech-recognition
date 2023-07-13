@@ -35,14 +35,18 @@ export class SberSaluteSpeechRecognitionService
   private token: SberSaluteToken | null = null;
   private readonly sessionId: string;
 
-  constructor(authKey: string, sessionId?: string) {
+  constructor(
+    authKey: string,
+    sessionId?: string,
+    private readonly scope = TOKEN_SCOPE
+  ) {
     this.authKey = authKey;
     this.sessionId = sessionId || uuid.v4();
   }
 
   private async updateAccessToken() {
     const data = qs.stringify({
-      scope: TOKEN_SCOPE,
+      scope: this.scope,
     });
 
     const response = await axios({
