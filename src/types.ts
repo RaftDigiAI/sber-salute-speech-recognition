@@ -43,3 +43,5 @@ export type SpeechToTextResult = {
   text: string;
   normalizedText: string;
 };
+
+export type ChannelsCount = 1 | 2;
