@@ -18,6 +18,7 @@ import {
   RecognitionResultResponse,
   RecognitionStatusResponse,
   ChannelsCount,
+  SberRecognizeHints,
 } from './types';
 import { Scope, AudioEncoding } from './enums';
 
@@ -25,7 +26,8 @@ export interface ISberSaluteSpeechRecognitionService {
   speechToText(
     audioPath: string,
     encoding: AudioEncoding,
-    channels_count?: ChannelsCount
+    channels_count?: ChannelsCount,
+    hints?: SberRecognizeHints
   ): Promise<SpeechToTextResult>;
 }
 
@@ -104,13 +106,15 @@ export class SberSaluteSpeechRecognitionService
     uploadedFile: FileUploadResponse,
     fileMetadata: IAudioMetadata,
     encoding: AudioEncoding,
-    channels_count?: ChannelsCount
+    channels_count?: ChannelsCount,
+    hints?: SberRecognizeHints
   ): Promise<RecognitionResponse> {
     const data = JSON.stringify({
       options: {
         model: 'general',
         audio_encoding: encoding,
         sample_rate: fileMetadata.format.sampleRate,
+        hints: hints,
         channels_count: channels_count
           ? channels_count
           : fileMetadata.format.numberOfChannels,
@@ -182,7 +186,8 @@ export class SberSaluteSpeechRecognitionService
   async speechToText(
     audioPath: string,
     encoding: AudioEncoding,
-    channels_count?: ChannelsCount
+    channels_count?: ChannelsCount,
+    hints?: SberRecognizeHints
   ): Promise<SpeechToTextResult> {
     const metadata = await parseFile(audioPath);
     const fileUploadResponse = await this.uploadFileForRecognition(audioPath);
@@ -190,7 +195,8 @@ export class SberSaluteSpeechRecognitionService
       fileUploadResponse,
       metadata,
       encoding,
-      channels_count
+      channels_count,
+      hints
     );
 
     const startTime = Date.now();
