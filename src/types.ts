@@ -48,6 +48,6 @@ export type ChannelsCount = 1 | 2;
 
 export type SberRecognizeHints = {
   words: Array<string>;
-  enable_letters: boolean;
-  eou_timeout: string;
+  enable_letters?: boolean;
+  eou_timeout?: string;
 };
